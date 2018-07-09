@@ -24,3 +24,5 @@ $routeManager = new RouteManager(null);
 $routeManager->addRoute('employees', $route);
 $routeManager->handleRoute();
 ```
+Example endpoint URL:
+...ajax.php?route=employees&path=one&employee_id=e336890

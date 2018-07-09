@@ -1,4 +1,5 @@
 # PHP Simple Routing
+Simple PHP routing library similar to JavaScript Express.
 
 ## Setup
 Clone or download this repo and add the folder to your project.

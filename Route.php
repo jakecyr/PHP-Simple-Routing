@@ -2,6 +2,7 @@
 class Route
 {
     private $endpoints;
+    private $middle;
 
     public function __construct()
     {
@@ -10,11 +11,17 @@ class Route
             'POST' => [],
         ];
 
+        $this->middle = [];
+
         return $this;
     }
     private function addPath($type, $path, $callback)
     {
         $this->endpoints[$type][$path] = (object) ['callback' => $callback];
+        return $this;
+    }
+    public function use($callback){
+        array_push($this->middle, $callback);
         return $this;
     }
     public function get($path, $callback)
@@ -43,6 +50,11 @@ class Route
             return $this->endpoints[$type][$path];
         } else {
             new JsonError('Endpoint does not exist');
+        }
+    }
+    public function executeMiddle(&$params, $db){
+        foreach($this->middle as $middleFunction){
+            $middleFunction($params, $db);
         }
     }
     public function getPaths()

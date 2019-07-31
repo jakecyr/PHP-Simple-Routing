@@ -1,0 +1,27 @@
+<?php
+class Request
+{
+    public $method;
+    public $body;
+    public $query;
+    public $path;
+    public $route;
+
+    public function __construct($method, $params, $route, $path)
+    {
+        if ($method == 'GET' || $method == 'DELETE') {
+            $this->query = $params;
+            $this->body = [];
+        } else if ($method == 'POST' || $method == 'PUT') {
+            $this->body = $params;
+            $this->query = [];
+        } else{
+            $this->body = [];
+            $this->query = [];
+        }
+
+        $this->route = $route;
+        $this->method = $method;
+        $this->path = $path;
+    }
+}

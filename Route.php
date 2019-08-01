@@ -9,6 +9,8 @@ class Route
         $this->endpoints = [
             'GET' => [],
             'POST' => [],
+            'DELETE' => [],
+            'PUT' => [],
         ];
 
         $this->middle = [];

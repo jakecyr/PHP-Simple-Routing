@@ -14,19 +14,22 @@ Create a route for each type of endpoint:
 $route = new Route();
 
 $route
-	->use(function($req, $db){
+	->use(function($req, $res, $db){
 		//middleware
 	})
-	->get('all', function($req){
-		print "All employees here";
+	->get('all', function($req, $res){
+		$res->end("All employees here");
 	})
-
-	->get('one', function($req){
+	->get('one', function($req, $res){
 		if(!isset($params->query["employee_id"])) new JsonError('Employee ID required');
-		print "Employee ID: " . $params->query["employee_id"];
+		
+		$res->json([
+			"Employee ID" => $params->query["employee_id"]
+		]);
 	})
-	->post('add', function($req){
-		print_r($req->body);
+	->post('add', function($req, $res, $db){
+		$result = $db->execute("INSERT INTO User(name, age) VALUES ('Test', 20)");
+		$res->json($result);
 	});
 ```
 
